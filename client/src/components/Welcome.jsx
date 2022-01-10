@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AiFillPlayCircle } from 'react-icons/ai';
 import { SiEthereum } from "react-icons/si";
 import { SiBandsintown } from 'react-icons/si';
 import { Loader } from './';
+import { TransactionContext } from '../context/TransactionContext';
 
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
@@ -19,7 +20,10 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 const Welcome = () => {
 
-    const connectToWallet = () => {
+    const { connectWallet, currentAccount } = useContext(TransactionContext);
+
+
+    const handleSubmit = () => {
 
     }
 
@@ -33,17 +37,20 @@ const Welcome = () => {
                     Make your first ETHEREUM transactions safely and Enjoy the growth of crypto.
                 </p>
 
-                <button
-                    type="button"
-                    onClick={connectToWallet}
-                    className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                >
-                    <AiFillPlayCircle className="text-white mr-2" />
-                    <p className="text-white text-base font-semibold">
-                        Connect Wallet
-                    </p>
 
-                </button>
+                {!currentAccount &&
+                    <button
+                        type="button"
+                        onClick={connectWallet}
+                        className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+                    >
+                        <AiFillPlayCircle className="text-white mr-2" />
+                        <p className="text-white text-base font-semibold">
+                            Connect Your Wallet
+                        </p>
+
+                    </button>
+                }
 
                 <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
 
@@ -81,7 +88,7 @@ const Welcome = () => {
                         <div>
                             <p className="text-white font-light text-sm">
                                 {/* {shortenAddress(currentAccount)} */}
-                                kblsiv;ohfaweiu;ofo
+                                {currentAccount}
                             </p>
                             <p className="text-white font-semibold text-lg mt-1">
                                 Ethereum
@@ -98,13 +105,13 @@ const Welcome = () => {
                     />
 
                     <Input
-                        placeholder="Amount (ETH)"
+                        placeholder="Add Amount in (ETH)"
                         name="amount"
                         type="number"
                     // handleChange={handleChange}
                     />
                     <Input
-                        placeholder="Keyword (Gif)"
+                        placeholder="Keyword for (Gif)"
                         name="keyword"
                         type="text"
                     // handleChange={handleChange}
@@ -125,7 +132,7 @@ const Welcome = () => {
                             : (
                                 <button
                                     type="button"
-                                    // onClick={handleSubmit}
+                                    onClick={handleSubmit}
                                     className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
                                 >
                                     Send now
