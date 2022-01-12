@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { AiFillPlayCircle } from 'react-icons/ai';
 import { SiEthereum } from "react-icons/si";
-import { SiBandsintown } from 'react-icons/si';
 import { Loader } from './';
 import { TransactionContext } from '../context/TransactionContext';
+import swal from 'sweetalert';
 
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
@@ -59,28 +59,6 @@ const Welcome = () => {
 
                     </button>
                 }
-
-                <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
-
-                    <div className="sm:rounded-tl-2xl min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white">
-                        Ethereum
-                    </div>
-                    <div className="sm:px-0 min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white">
-                        Web 3.0
-                    </div>
-                    <div className="min-h-[70px] rounded-tr-2xl px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white">
-                        Low Fees
-                    </div>
-                    <div className="rounded-bl-2xl min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white">
-                        Blockchain
-                    </div>
-                    <div className="sm:px-0 min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white ">
-                        Belief
-                    </div>
-                    <div className="min-h-[70px] rounded-br-2xl px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white">
-                        Secure
-                    </div>
-                </div>
             </div>
 
 
@@ -95,8 +73,23 @@ const Welcome = () => {
                         </div>
                         <div>
                             <p className="text-white font-light text-sm">
-                                {/* {shortenAddress(currentAccount)} */}
-                                {currentAccount}
+                                {currentAccount ?
+
+                                    (
+                                        <button onClick={() => {
+                                            swal({
+                                                title: "Account Connected is ",
+                                                text: currentAccount,
+                                                showCancelButton: true,
+                                                icon: "success",
+                                            })
+
+                                        }}>
+                                            {currentAccount.slice(0, 6)}...
+                                        </button>
+                                    )
+                                    : <span>Connect your wallet</span>
+                                }
                             </p>
                             <p className="text-white font-semibold text-lg mt-1">
                                 Ethereum
@@ -133,20 +126,20 @@ const Welcome = () => {
 
                     <div className="h-[1px] w-full bg-gray-400 my-2" />
 
-                    {
-                        !{isLoading}
-                            ? <Loader />
-                            : (
-                                <button
-                                    type="button"
-                                    onClick={handleSubmit}
-                                    className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
-                                >
-                                    Send now
-                                </button>
-                            )
-                    }
+                    {isLoading
+                        ? <Loader />
+                        : (
+                            <button
+                                type="button"
+                                onClick={handleSubmit}
+                                className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
+                            >
+                                Send now
+                            </button>
+                        )}
                 </div>
+
+
             </div>
         </div>
 
