@@ -1,4 +1,4 @@
-# blockchain-postShare
+# Blockchain-ShareCoin
 
 It is a website where you can send digital coin through metamask with high security using blockchain.
 Also you can send a message with every transaction and your transactions history is saved and shown on the website.
